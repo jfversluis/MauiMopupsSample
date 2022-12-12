@@ -1,24 +1,21 @@
-﻿namespace MauiMopupsSample;
+﻿using Mopups.Interfaces;
+
+namespace MauiMopupsSample;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+	IPopupNavigation popupNavigation;
 
-	public MainPage()
+	public MainPage(IPopupNavigation popupNavigation)
 	{
 		InitializeComponent();
+
+		this.popupNavigation = popupNavigation;
 	}
 
 	private void OnCounterClicked(object sender, EventArgs e)
 	{
-		count++;
-
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
-
-		SemanticScreenReader.Announce(CounterBtn.Text);
+        popupNavigation.PushAsync(new MyPopupPage());
 	}
 }
 
